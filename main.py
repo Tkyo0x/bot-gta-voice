@@ -4,13 +4,13 @@ from flask import Flask, request
 from threading import Thread
 import os
 
-# --- CONFIGURACIÓN ---
-# Token directo para evitar problemas de variables de entorno en la nube gratuita
+# --- TU TOKEN DE LA CUENTA SECUNDARIA ---
+# (Si Discord te lo reseteó por ponerlo en el chat, busca el nuevo en la consola F12)
 TOKEN = "MTQ0NzM4NzE3MTA3Mjc3MDE1MA.Ge8ymP._48sBp6ZIkXdLxXSq_CoS5xSNzVLSf0B932vE0"
-# ---------------------
+# ----------------------------------------
 
-intents = discord.Intents.default()
-client = discord.Client(intents=intents)
+# Usamos la libreria self-bot
+client = discord.Client()
 app = Flask(__name__)
 bot_loop = None
 
@@ -18,11 +18,11 @@ bot_loop = None
 async def on_ready():
     global bot_loop
     bot_loop = asyncio.get_running_loop()
-    print(f'✅ BOT ONLINE: {client.user}')
+    print(f'✅ CUENTA CONECTADA: {client.user}')
 
 @app.route('/')
 def home():
-    return "BOT GTA FUNCIONANDO 24/7"
+    return "CUENTA GTA FUNCIONANDO"
 
 @app.route('/join')
 def join_route():
@@ -35,11 +35,15 @@ def join_route():
 async def connect_voice(channel_id):
     try:
         channel = client.get_channel(int(channel_id))
+        # Verificamos si es canal de voz
         if channel and isinstance(channel, discord.VoiceChannel):
+            # Si ya está en otro canal, se sale
             if client.voice_clients:
                 await client.voice_clients[0].disconnect()
-            await channel.connect()
-            print(f"🔊 Conectado a: {channel.name}")
+            
+            # Se une al canal (como usuario, self_deaf=True para no consumir ancho de banda)
+            await channel.connect(self_deaf=True)
+            print(f"🔊 Entré al canal: {channel.name}")
     except Exception as e:
         print(f"❌ Error: {e}")
 
