@@ -6,7 +6,7 @@ import os
 
 # --- TU TOKEN DE LA CUENTA SECUNDARIA ---
 # (Si Discord te lo reseteó por ponerlo en el chat, busca el nuevo en la consola F12)
-TOKEN = "MTQ0NzM4NzE3MTA3Mjc3MDE1MA.Ge8ymP._48sBp6ZIkXdLxXSq_CoS5xSNzVLSf0B932vE0"
+TOKEN = "MTQ0NzM4NzE3MTA3Mjc3MDE1MA.G9IFF3.a71gEj4PTsZRlsBqFej7UH43TAH6otS89XWtXQ"
 # ----------------------------------------
 
 # Usamos la libreria self-bot
@@ -54,3 +54,4 @@ if __name__ == '__main__':
     t = Thread(target=run)
     t.start()
     client.run(TOKEN)
+
